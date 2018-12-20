@@ -1,31 +1,23 @@
-/**
- * Dec 18, 2018
- * Jacob
- * Obtain historical figures names and info and store it
- */
 
+/**
+ * Dec 18, 2018 Jacob Obtain historical figures names and info and store it
+ */
 import java.io.*;
 
 public class GUI extends javax.swing.JFrame {
-    
-    
-    
+
+    // Variable and Constant Initialization
+    File dataFile = new File("historicalLeader.dat"); //external document
+    FileWriter out;
+    BufferedWriter writeFile;   
+
     /**
      * Creates new form GUI
      */
     public GUI() {
         initComponents();
     }
- 
-    /**
-     * @param 
-     * @param 
-     * @param 
-     **/
-    public static void stringLength(boolean valid, int intInput, String stringInput) {
-            
-    }
-    
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -46,6 +38,8 @@ public class GUI extends javax.swing.JFrame {
         infoConfirmButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        backgroundPanel.setBackground(new java.awt.Color(255, 255, 204));
 
         nameInput.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -136,11 +130,16 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nameInputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameInputActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_nameInputActionPerformed
 
     private void infoConfirmButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_infoConfirmButtonActionPerformed
-        // TODO add your handling code here:
+        //Get Information from GUI
+        String name = nameInput.getText(); //person's leader
+        String nameDesc = descInput.getText(); //person's information 
+        
+        //Information Add Method
+        infoWrite(name,nameDesc,out,dataFile,writeFile);
     }//GEN-LAST:event_infoConfirmButtonActionPerformed
 
     /**
@@ -176,6 +175,34 @@ public class GUI extends javax.swing.JFrame {
                 new GUI().setVisible(true);
             }
         });
+    }
+
+    /**
+     * Takes information from the GUI, and stores it in the external document
+     * @param
+     * @param
+     * @param
+     */
+    public static void infoWrite(String name, String nameDesc, FileWriter out, File dataFile, BufferedWriter writeFile) {
+        try {
+            //file writer
+            out = new FileWriter(dataFile, true);
+            writeFile = new BufferedWriter(out);
+
+            //Write GUI Info to Documentation
+            writeFile.write(name+", "+nameDesc);
+            writeFile.newLine();
+            
+            //Close
+            writeFile.close();
+            out.close();
+            System.out.println("Data written to file."); //For testing, console mesage
+
+        } catch (IOException e) {
+            System.out.println("Problem writing to file.");
+            System.err.println("IOException: " + e.getMessage());
+        }
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
